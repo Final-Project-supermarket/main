@@ -1,15 +1,19 @@
 
-const http = require('http');
+const express = require('express');
+const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose")
+const app = express();
+const port = 3000;
 
-// Create an instance of the http server to handle HTTP requests
-let app = http.createServer((req, res) => {
-    // Set a response type of plain text for the response
-    res.writeHead(200, {'Content-Type': 'text/plain'});
+const mongoString = "mongodb+srv://nadav:nadav123@cluster0.gfmrz.mongodb.net/Project?retryWrites=true&w=majority"
+mongoose.connect(mongoString, {useNewUrlParser: true})
+mongoose.connection.on("error", function(error) {
+  console.log(error)
+})
+mongoose.connection.on("open", function() {
+  console.log("Connected to MongoDB database.")
+})
 
-    // Send back a response and end the connection
-    res.end('Hello World!\n');
+app.listen(port,()=> {
+    console.log(`App Running on port ${port}`);
 });
-
-// Start the server on port 3000
-app.listen(3000, '127.0.0.1');
-console.log('Node server running on port 3000');
