@@ -1,3 +1,6 @@
+const Items = require('../models/Items');
+
+
 // @desc Get All items
 // @route Get /api/v1/items
 // @access Public - No Need for Token/To be Logged In
@@ -18,9 +21,13 @@ exports.getItem = (req, res, next) => {
 // @route Post /api/v1/items
 // @access Private - Yes Need for Token/To be Logged In
 
-exports.createItem = (req, res, next) => {
-    res.status(200).json({ success: true, msg: 'Create Item' });
-}
+exports.createItem = async (req, res, next) => {
+const item =  await Items.create(req.body);
+res.status(201).json({
+    success:true,
+    data: item
+});
+};
 
 // @desc  Update an Item
 // @route Put /api/v1/items/:id

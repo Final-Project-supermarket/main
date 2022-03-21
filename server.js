@@ -1,23 +1,16 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const mongoose = require("mongoose")
+const connectDB =require('./config/db');
 dotenv.config({ path: './config/config.env' });
+connectDB();
 const logger = require('./middleware/logger')
 const items = require('./routes/items')
 const users = require('./routes/users')
 const grocerylist = require('./routes/grocerylist')
 const app = express();
+app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
-
-const mongoString = "mongodb+srv://nadav:nadav123@cluster0.gfmrz.mongodb.net/Supermarket?retryWrites=true&w=majority"
-mongoose.connect(mongoString, { useNewUrlParser: true })
-mongoose.connection.on("error", function (error) {
-    console.log(error)
-})
-mongoose.connection.on("open", function () {
-    console.log("Connected to MongoDB database.")
-})
 
 app.use(logger);
 app.get('/', (req, res) => {
@@ -27,6 +20,11 @@ app.use('/api/v1/items', items);
 app.use('/api/v1/users', users);
 app.use('/api/v1/grocerylist', grocerylist);
 
-app.listen(PORT, () => {
-    console.log(`Server Running in ${process.env.NODE_ENV} on port ${PORT}`);
+const server= app.listen(PORT,
+    console.log(`Server Running in ${process.env.NODE_ENV} on port ${PORT}`)
+);
+process.on('unhandledRejection',(err,promise)=>{
+    console.log(`Error: ${err.message}`)
+    server.close(()=>process.exit(1));
 });
+
