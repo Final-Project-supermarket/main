@@ -1,22 +1,7 @@
 const express = require('express');
-const res = require('express/lib/response');
+const { getItems, getItem, createItem, updateItem, deleteItem } = require('../controllers/items');
 const router = express.Router();
 
-router.get('/',(req,res)=>{
-    res.status(200).json({success: true, msg: ' Show all Items'});
-});
-
-router.get('/:id',(req,res)=>{
-    res.status(200).json({success: true, msg:`Show Item ${req.params.id}`});
-});
-
-router.post('/',(req,res)=>{
-    res.status(200).json({success: true, msg: 'Create Item'});
-});
-router.put('/:id',(req,res)=>{
-    res.status(200).json({success: true, msg: `Update Item ${req.params.id}`});
-});
-router.delete('/:id',(req,res)=>{
-    res.status(200).json({success: true, msg: `Delete Item ${req.params.id}`});
-});
+router.route('/').get(getItems).post(createItem);
+router.route('/:id').get(getItem).put(updateItem).delete(deleteItem);
 module.exports = router;
