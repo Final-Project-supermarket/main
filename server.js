@@ -2,6 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require("mongoose")
 dotenv.config({path: './config/config.env'});
+const items = require('./routes/items')
+const users = require('./routes/users')
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -18,6 +20,8 @@ mongoose.connection.on("open", function() {
 app.get('/',(req,res) =>{
 res.send("Hello From Express")
 });
+app.use('/api/v1/items',items);
+app.use('/api/v1/users',users);
 
 app.listen(PORT,()=> {
     console.log(`Server Running in ${process.env.NODE_ENV} on port ${PORT}`);
