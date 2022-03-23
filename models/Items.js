@@ -4,4 +4,4 @@ const ItemSchema = new mongoose.Schema({
 name: String,
 price: Number
 });
-module.exports = mongoose.model('Items',ItemSchema);
+module.exports = mongoose.model('items',ItemSchema);

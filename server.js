@@ -7,6 +7,7 @@ const logger = require('./middleware/logger')
 const items = require('./routes/items')
 const users = require('./routes/users')
 const grocerylist = require('./routes/grocerylist')
+const auth = require('./routes/auth')
 const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/items', items);
 app.use('/api/v1/users', users);
 app.use('/api/v1/grocerylist', grocerylist);
+app.use('/api/v1/auth', auth);
 
 const server= app.listen(PORT,
     console.log(`Server Running in ${process.env.NODE_ENV} on port ${PORT}`)
