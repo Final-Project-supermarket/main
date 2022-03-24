@@ -6,6 +6,7 @@ connectDB();
 const logger = require('./middleware/logger')
 const items = require('./routes/items')
 const users = require('./routes/users')
+
 const grocerylist = require('./routes/grocerylist')
 const app = express();
 app.use(express.json());
@@ -16,6 +17,7 @@ app.use(logger);
 app.get('/', (req, res) => {
     res.send("Hello From Express")
 });
+
 app.use('/api/v1/items', items);
 app.use('/api/v1/users', users);
 app.use('/api/v1/grocerylist', grocerylist);
@@ -27,4 +29,5 @@ process.on('unhandledRejection',(err,promise)=>{
     console.log(`Error: ${err.message}`)
     server.close(()=>process.exit(1));
 });
+
 
