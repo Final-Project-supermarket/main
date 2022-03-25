@@ -4,10 +4,12 @@ const connectDB =require('./config/db');
 dotenv.config({ path: './config/config.env' });
 connectDB();
 const logger = require('./middleware/logger')
+
 const items = require('./routes/items')
 const users = require('./routes/users')
 const grocerylist = require('./routes/grocerylist')
 const auth = require('./routes/auth')
+
 const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
