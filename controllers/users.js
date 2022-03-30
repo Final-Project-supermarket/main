@@ -1,39 +1,61 @@
-// @desc Get All Users
-// @route Get /api/v1/users
-// @access Public - No Need for Token/To be Logged In
 
-exports.getUsers = (req, res, next) => {
-    res.status(200).json({ success: true, msg: 'Show All Users' });
-}
+const asyncHandler = require('../middleware/async');
+const User = require('../models/User');
 
-// @desc Get Specific User
-// @route Get /api/v1/users/:id
-// @access Public - No Need for Token/To be Logged In
+// @desc      Get all users
+// @route     GET /api/v1/auth/users
+// @access    Private/Admin
+exports.getUsers = asyncHandler(async (req, res, next) => {
+  res.status(200).json(res.advancedResults);
+});
 
-exports.getUser = (req, res, next) => {
-    res.status(200).json({ success: true, msg: `Show User ${req.params.id}` });
-}
+// @desc      Get single user
+// @route     GET /api/v1/auth/users/:id
+// @access    Private/Admin
+exports.getUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
 
-// @desc  Create a User
-// @route Post /api/v1/users
-// @access Private - Yes Need for Token/To be Logged In
+  res.status(200).json({
+    success: true,
+    data: user
+  });
+});
 
-exports.createUser = (req, res, next) => {
-    res.status(200).json({ success: true, msg: 'Create User' });
-}
+// @desc      Create user
+// @route     POST /api/v1/auth/users
+// @access    Private/Admin
+exports.createUser = asyncHandler(async (req, res, next) => {
+  const user = await User.create(req.body);
 
-// @desc  Update a User
-// @route Put /api/v1/users/:id
-// @access Private - Yes Need for Token/To be Logged In
+  res.status(201).json({
+    success: true,
+    data: user
+  });
+});
 
-exports.updateUser = (req, res, next) => {
-    res.status(200).json({ success: true, msg: `Update User ${req.params.id}` });
-}
+// @desc      Update user
+// @route     PUT /api/v1/auth/users/:id
+// @access    Private/Admin
+exports.updateUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  });
 
-// @desc  Delete a User
-// @route Delete /api/v1/users/:id
-// @access Private - Yes Need for Token/To be Logged In
+  res.status(200).json({
+    success: true,
+    data: user
+  });
+});
 
-exports.deleteUser = (req, res, next) => {
-    res.status(200).json({ success: true, msg: `Delete User ${req.params.id}` });
-}
+// @desc      Delete user
+// @route     DELETE /api/v1/auth/users/:id
+// @access    Private/Admin
+exports.deleteUser = asyncHandler(async (req, res, next) => {
+  await User.findByIdAndDelete(req.params.id);
+
+  res.status(200).json({
+    success: true,
+    data: {}
+  });
+});
