@@ -7,7 +7,7 @@ const asyncHandler = require('../middleware/async');
 // @route Get /api/v1/items
 // @access Public - No Need for Token/To be Logged In
 
-exports.getItems = asyncHandler(async (req, res, next) => {
+ exports.getItems = asyncHandler(async (req, res, next) => {
     try {
         const items = await Items.find();
         res.status(200).json({ success: true, data: items });
