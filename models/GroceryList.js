@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('../models/User');
-const Items = require('../models/Items');
+
 
 const GroceryListSchema = new mongoose.Schema({
   user: {

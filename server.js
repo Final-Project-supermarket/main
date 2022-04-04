@@ -6,6 +6,7 @@ connectDB();
 const logger = require('./middleware/logger')
 
 const items = require('./routes/items')
+const items2 = require('./routes/items2')
 const users = require('./routes/users')
 const grocerylist = require('./routes/grocerylist')
 const auth = require('./routes/auth')
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
     res.send("Hello From Express")
 });
 app.use('/api/v1/items', items);
+app.use('/api/v1/items2', items2);
 app.use('/api/v1/users', users);
 app.use('/api/v1/grocerylist', grocerylist);
 app.use('/api/v1/auth', auth);

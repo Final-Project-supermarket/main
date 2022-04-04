@@ -1,4 +1,4 @@
-const Items = require('../models/Items1');
+const Items = require('../models/Items2');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 
