@@ -7,7 +7,7 @@ const {
   createItem,
   updateItem,
   deleteItem,
-} = require("../controllers/items");
+} = require("../controllers/items1");
 const router = express.Router();
 
 router.route("/").get(getItems).post(createItem);

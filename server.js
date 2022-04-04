@@ -5,7 +5,7 @@ dotenv.config({ path: './config/config.env' });
 connectDB();
 const logger = require('./middleware/logger')
 
-const items = require('./routes/items')
+const items = require('./routes/items1')
 const items2 = require('./routes/items2')
 const users = require('./routes/users')
 const grocerylist = require('./routes/grocerylist')
