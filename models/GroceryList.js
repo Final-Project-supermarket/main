@@ -10,7 +10,7 @@ const GroceryListSchema = new mongoose.Schema({
   listofItems: {
     type: Array,
     required: [true, 'Please add Items'],
-    minlength: 6,
+    minlength: 1,
     select: false
   }
 });

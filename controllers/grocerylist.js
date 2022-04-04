@@ -89,6 +89,9 @@ exports.updategroceryList = asyncHandler(async (req, res, next) => {
 });
 
 exports.getbestList =  asyncHandler(async (req, res, next) => {
+    // Fetch List of
+    // Algorithm
+    // Return
     
 res.status(200).json({ success: true, data: "Succes, Will Display Best and Cheapest List"})
 });
