@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Final-Project-supermarket/main#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "crypto": "^1.0.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

@@ -1,9 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 const connectDB =require('./config/db');
 dotenv.config({ path: './config/config.env' });
 connectDB();
 const logger = require('./middleware/logger')
+
 
 const items = require('./routes/items1')
 const items2 = require('./routes/items2')
@@ -13,6 +15,7 @@ const auth = require('./routes/auth')
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 const PORT = process.env.PORT || 5000;
 
 

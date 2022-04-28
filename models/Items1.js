@@ -5,5 +5,5 @@ const ItemSchema = new mongoose.Schema({
   ItemName: String,
   ItemPrice: Number,
 });
-module.exports = mongoose.model("items1", ItemSchema);
+module.exports = mongoose.model("items5", ItemSchema); // Change After Normalize XML - NADAV
 // FIX MULTIPLE COLLECTION

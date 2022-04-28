@@ -4,8 +4,9 @@ const User = require('../models/User');
 
 const GroceryListSchema = new mongoose.Schema({
   user: {
-    type: String,
-    required: [true, 'Enter Your Uniqe Email'],
+    type: mongoose.Schema.ObjectId,
+    ref:'User',
+    required: true
   },
   listofItems: {
     type: Array,

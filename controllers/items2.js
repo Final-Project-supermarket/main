@@ -11,6 +11,7 @@ const asyncHandler = require('../middleware/async');
     try {
         const items = await Items.find();
         
+        
         res.status(200).json({ success: true, data: items });
     } catch (err) {
         res.status(400).json({ error: err });

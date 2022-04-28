@@ -1,7 +1,7 @@
 const GroceryList = require('../models/GroceryList');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
-
+// IMPORT ITEM 1 AND TWO 
 
 // @desc Get All Grocery Lists
 // @route Get /api/v1/grocerylist
@@ -41,7 +41,9 @@ exports.getgroceryList = asyncHandler(async (req, res, next) => {
 // @access Private - Yes Need for Token/To be Logged In
 
 exports.creategroceryList = asyncHandler(async (req, res, next) => {
+    req.body.user = req.user.id;
     const gl = await GroceryList.create(req.body);
+    
     res.status(201).json({
         success: true,
         data: gl
