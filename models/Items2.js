@@ -5,5 +5,5 @@ const ItemSchema = new mongoose.Schema({
   ItemName: String,
   ItemPrice: Number,
 });
-module.exports = mongoose.model("items2", ItemSchema);
+module.exports = mongoose.model("items6", ItemSchema);
 // FIX MULTIPLE COLLECTION
