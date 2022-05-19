@@ -6,106 +6,132 @@ const Items = require("../models/Items1");
 const Items2 = require("../models/Items2");
 var flist = [];
 var slist = [];
-var ftempdoc, stempdoc,data2; // first temp doc, second temp doc
+var ftempdoc, stempdoc, data2, fprice, sprice; // first temp doc, second temp doc
 var map = new Map();
 
-async function findItem1(barcode) {
-  let item = await Items.findOne({ ItemCode: barcode });
-  return item;
-}
-async function findItem2(barcode) {
-  let item = await Items2.findOne({ ItemCode: barcode });
-  return item;
-}
-async function findPrice1(barcode) {
-  let item = await Items.findOne({ ItemCode: barcode });
-  return item.ItemPrice;
-}
-async function findPrice2(barcode) {
-  let item = await Items2.findOne({ ItemCode: barcode });
-  return item.ItemPrice;
-}
+// function nestedLoop(obj) {
+//     // Take from obj List
+//   const res = {};
+//   function recurse(obj, current) {
+//     for (const key in obj) {
+//       var fprice, sprice;
+//       let value = obj[key];
+//       if (value != undefined) {
+//         if (value && typeof value === "object") {
+//           recurse(value, key);
+//         } else {
+//           //-------------
+//           if (key == "ItemCode") {
+//             Items.findOne({ ItemCode: value }).then((data) => {
+//               f(data);
+//             });
+//             function f(data) {
+//               ftempdoc = data;
+//               console.log(" Came from f Funct " + ftempdoc);
+//             }
+//             Items2.findOne({ ItemCode: value }).then((data) => {
+//               f1(data);
+//             });
+//             function f1(data) {
+//               stempdoc = data;
+//               console.log(" Came from f1 Funct " + stempdoc);
+//             }
+//             Items.findOne({ ItemCode: value }).then((data) => {
+//               f2(data);
+//             });
+//             function f2(data) {
+//               fprice = data.ItemPrice;
+//               console.log(" Came from f2 Funct " + fprice);
+//             }
+//             Items2.findOne({ ItemCode: value }).then((data) => {
+//               f3(data);
+//             });
+//             function f3(data) {
+//               sprice = data.ItemPrice;
+//               console.log(" Came from f3 Funct " + sprice);
+//             }
+//             // ftempdoc = findItem1(value);
+//             // stempdoc = findItem2(value);
+//             // fprice = findPrice1(value);
+//             // sprice = findPrice2(value);
 
-function nestedLoop(obj) {
-  const res = {};
-  function recurse(obj, current) {
-    for (const key in obj) {
-      var fprice, sprice;
-      let value = obj[key];
-      if (value != undefined) {
-        if (value && typeof value === "object") {
-          recurse(value, key);
+//             // console.log(fprice);
+//             // // console.log("second prices");
+//             // console.log(sprice);
+//             if (fprice < sprice) {
+//               flist.push(ftempdoc);
+//             } else {
+//               slist.push(stempdoc);
+//             }
+//           }
+
+//           //---------------
+//           res[key] = value;
+//         }
+//       }
+//     }
+//   }
+//   recurse(obj);
+//   console.log(flist);
+//   console.log(slist);
+//   data2 = {
+//     firstlistofItems: flist,
+//     secondlistofItems: slist,
+//   };
+//   console.log("end")
+//   const gl = UGroceryList.create(data2);
+//   return res;
+// }
+function fixedloop(obj) {
+  obj.listofItems.forEach((item) => {
+    for (let key in item) {
+      if (key == "ItemCode") {
+        Items.findOne({ ItemCode: item[key] }).then((data) => {
+          f(data);
+        });
+        function f(data) {
+          ftempdoc = data;
+          console.log(" Came from f Funct " + ftempdoc);
+        }
+        Items2.findOne({ ItemCode: item[key] }).then((data) => {
+          f1(data);
+        });
+        function f1(data) {
+          stempdoc = data;
+          console.log(" Came from f1 Funct " + stempdoc);
+        }
+        Items.findOne({ ItemCode: item[key] }).then((data) => {
+          f2(data);
+        });
+        function f2(data) {
+          fprice = data.ItemPrice;
+          console.log(" Came from f2 Funct " + fprice);
+        }
+        Items2.findOne({ ItemCode: item[key] }).then((data) => {
+          f3(data);
+        });
+        function f3(data) {
+          sprice = data.ItemPrice;
+          console.log(" Came from f3 Funct " + sprice);
+        }
+        if (fprice < sprice) {
+          flist.push(ftempdoc);
         } else {
-          //-------------
-          if (key == "ItemCode") {
-            // var doc = await Items.findOne({ ItemCode: value }).exec();
-            // ftempdoc = doc
-            // var doc1 = await Items2.findOne({ ItemCode: value }).exec();
-            // stempdoc = doc1
-            // var doc3 = await Items1.findOne({ ItemCode: value }).exec();
-            // fprice = doc3.ItemPrice
-            // var doc4 = await Items2.findOne({ ItemCode: value }).exec();
-            // sprice = doc4.ItemPrice
-            findItem1(value).then(data => {
-                ftempdoc = data;
-                //print
-                console.log(ftempdoc);
-              });
-              findItem2(value).then(data => {
-                stempdoc = data;
-              });
-              findPrice1(value).then(data => {
-                
-                fprice = data;
-                console.log(fprice);
-              });
-              findPrice2(value).then(data => {
-                sprice = data;
-              });
-            // ftempdoc = findItem1(value);
-            // stempdoc = findItem2(value);
-            // fprice = findPrice1(value);
-            // sprice = findPrice2(value);
-
-
-            // var promise = Items.findOne({ ItemCode: value });
-            // promise.then(function successHandler(response) {
-            //   //ftempdoc = response;
-            //   fprice = response.ItemPrice;
-            // });
-
-            // var promise = Items2.findOne({ ItemCode: value });
-            // promise.then(function successHandler(response) {
-            //   //ftempdoc = response;
-            //   sprice = response.ItemPrice;
-            // });
-
-            console.log(fprice);
-            // console.log("second prices");
-            console.log(sprice);
-            if (fprice < sprice) {
-              flist.push(ftempdoc);
-            } else {
-              slist.push(stempdoc);
-            }
-          }
-
-          //---------------
-          res[key] = value;
+          slist.push(stempdoc);
         }
       }
     }
-  }
-  recurse(obj);
+  });
   console.log(flist);
   console.log(slist);
-    data2 = {
+  data2 = {
     firstlistofItems: flist,
     secondlistofItems: slist,
   };
+  console.log("end");
   const gl = UGroceryList.create(data2);
-  return res;
 }
+
 // IMPORT ITEM 1 AND TWO
 
 // @desc Get All Grocery Lists
@@ -138,14 +164,13 @@ exports.getgroceryList = asyncHandler(async (req, res, next) => {
 });
 
 // @desc  Create a Grocery List
-// @route Post /api/v1/grocerylist
+// @route Post /api/v1/grocerylist()
 // @access Private - Yes Need for Token/To be Logged In
 
 exports.creategroceryList = asyncHandler(async (req, res, next) => {
   req.body.user = req.user.id;
   const gl = await GroceryList.create(req.body);
-
-  nestedLoop(req.body);
+  fixedloop(req.body);
   res.status(201).json({
     success: true,
     data: gl,
