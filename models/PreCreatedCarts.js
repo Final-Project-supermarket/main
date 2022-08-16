@@ -13,6 +13,10 @@ const PreCreatedCartsSchema = new mongoose.Schema({
     required: [true, 'Please add Items'],
     minlength: 1,
     select: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 

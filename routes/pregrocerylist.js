@@ -1,8 +1,8 @@
 const express = require('express');
-const {createpredefined} = require('../controllers/grocerylist');
+const {createpredefined,getlast} = require('../controllers/precart');
 const router = express.Router();
 const { protect } = require('../middleware/auth')
-
-
-router.route('/').post(protect,createpredefined);
+// const { protect } = require('../middleware/auth')
+router.route('/').post(protect,createpredefined).get(getlast);
 module.exports = router;
+

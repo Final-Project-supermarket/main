@@ -89,15 +89,8 @@ exports.creategroceryList = asyncHandler(async (req, res, next) => {
     await createupdatedList(req.body);
 });
 
-exports.createpredefined = asyncHandler(async (req, res, next) => {
-    req.body.user = req.user.id;
-    console.log("happened")
-    const gl = await PreCreatedCartsSchema.create(req.body);
-    res.status(201).json({
-        success: true,
-        data: gl,
-    });
-});
+
+
 
 // @desc  Update a User
 // @route Put /api/v1/grocerylist/:id
