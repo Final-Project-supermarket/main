@@ -9,19 +9,10 @@ var flist = [];
 var slist = [];
 var ftempdoc, stempdoc, data2, fprice, sprice; // first temp doc, second temp doc
 
-exports.createpredefined = asyncHandler(async (req, res, next) => {
-    req.body.user = req.user.id;
-    console.log("happened")
-    const gl = await PreCreatedCartsSchema.create(req.body);
-    res.status(201).json({
-        success: true,
-        data: gl,
-    });
-});
 exports.getlast = asyncHandler(async (req, res, next) => {
     try {
         console.log("gothere");
-        const prelist = await PreCreatedCartsSchema.find({}).sort({_id:-1}).limit(1);
+        const prelist = await UGroceryList.find({}).sort({_id:-1}).limit(1);
          console.log(prelist);
         res.status(200).json({ success: true, data: prelist });
     } catch (err) {

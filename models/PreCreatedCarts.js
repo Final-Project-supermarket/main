@@ -11,8 +11,8 @@ const PreCreatedCartsSchema = new mongoose.Schema({
   listofItems: {
     type: Array,
     required: [true, 'Please add Items'],
-    minlength: 1,
-    select: false
+    minlength: 1
+    
   },
   createdAt: {
     type: Date,

@@ -13,6 +13,7 @@ const users = require('./routes/users')
 const grocerylist = require('./routes/grocerylist')
 const auth = require('./routes/auth')
 const pgl = require('./routes/pregrocerylist')
+const ugl = require('./routes/ugrocerylist')
 
 const app = express();
 app.use(express.json());
@@ -30,6 +31,7 @@ app.use('/api/v1/users', users);
 app.use('/api/v1/grocerylist', grocerylist);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/pregrocerylist', pgl);
+app.use('/api/v1/ugrocerylist', ugl);
 
 const server= app.listen(PORT,
     console.log(`Server Running in ${process.env.NODE_ENV} on port ${PORT}`)

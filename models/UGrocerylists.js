@@ -11,12 +11,12 @@ const UGroceryListSchema = new mongoose.Schema({
   firstlistofItems: {
     type: Array,
     required: [true, 'Please add Items'],
-    select: false
+    
   },
   secondlistofItems: {
     type: Array,
     required: [true, 'Please add Items'],
-    select: false
+    
   }
 });
 // U = Updated
